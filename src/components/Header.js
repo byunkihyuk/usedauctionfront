@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../AppContext";
 import CustomInput from "./CustomInput";
 
 function Header(props) {
