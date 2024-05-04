@@ -4,8 +4,6 @@ import Main from "./pages/main";
 import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
 import Mypage from "./pages/user/Mypage";
-import { useState } from "react";
-import { AppContext } from "./AppContext";
 import ChattingRooms from "./pages/chatting/ChattingRooms";
 import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
 import AllAuctionTransaction from "./pages/auction/AllAuctionTransaction";
@@ -15,10 +13,9 @@ import SearchPage from "./pages/SearchPage";
 import Loading from "./components/Loading";
 
 function App() {
-    const [loginToken, setLoginToken] = useState("");
     return (
-        <AppContext.Provider value={{ loginToken, setLoginToken }}>
-            <div className="App">
+        <div className="App">
+            <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/main" element={<Main />} />
@@ -33,8 +30,8 @@ function App() {
                     <Route path="/chat" element={<ChattingRooms />} />
                     <Route path="/load" element={<Loading />} />
                 </Routes>
-            </div>
-        </AppContext.Provider>
+            </BrowserRouter>
+        </div>
     );
 }
 
