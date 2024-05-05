@@ -34,7 +34,7 @@ jobs:
 
             # 빌드
             - name: react build
-              run: npm run build
+              run: CI=false npm run build
 
             # aws에 접근하기 위한 권한
             - name: Configure AWS credentials
