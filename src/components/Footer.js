@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
     return (
-        <footer className="relative bottom-0 min-w-[1000px] w-full h-20 min-h-20 bg-gray-200 p-4 flex z-0">
+        <footer className="relative bottom-0 w-full h-20 min-h-20 bg-gray-100 p-4 flex z-0">
             <table className="text-gray-600 text-sm">
                 <tbody>
                     <tr>
