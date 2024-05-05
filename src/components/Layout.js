@@ -3,9 +3,9 @@ import Header from "./Header";
 
 function Layouts(props) {
     return (
-        <section className="relative  w-full h-full scroll-auto flex flex-col">
+        <section className="relative  w-full h-full scroll-auto flex flex-col items-center justify-center">
             <Header />
-            <section className="relative top-0 py-5 h-auto min-h-[600px] min-w-[1000px] w-full flex flex-col items-center justify-center ">
+            <section className="top-0 py-16 h-full min-h-[600px] lg:max-w-[1000px] sm:w-auto  ">
                 {props.children}
             </section>
             <Footer />
