@@ -27,7 +27,7 @@ function Main() {
                         인기 거래 글
                     </div>
                     <div className="flex items-center justify-start space-x-2 p-2 overflow-auto">
-                        {data.topList &&
+                        {data.topList && data.topList.length > 0 ? (
                             data.topList.map((top, index) => (
                                 <ProductCard
                                     key={index}
@@ -37,8 +37,14 @@ function Main() {
                                             ? `/general/${top.generalTransactionId}`
                                             : `/auction/${top.auctionTransactionId}`
                                     }
+                                    type={top.generalTransactionId !== undefined ? "general" : ""}
                                 ></ProductCard>
-                            ))}
+                            ))
+                        ) : (
+                            <div className="w-full h-20 flex items-center justify-center">
+                                인기글이 없습니다.
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="w-full flex flex-col">
@@ -51,14 +57,20 @@ function Main() {
                         </Link>
                     </div>
                     <div className="flex items-center justify-start space-x-2 p-2  overflow-auto">
-                        {data.generalTransactionList &&
+                        {data.generalTransactionList && data.generalTransactionList.length > 0 ? (
                             data.generalTransactionList.map((general, index, key) => (
                                 <ProductCard
                                     key={index}
                                     info={general}
                                     url={`/general/${general.generalTransactionId}`}
+                                    type={"general"}
                                 ></ProductCard>
-                            ))}
+                            ))
+                        ) : (
+                            <div className="w-full h-20 flex items-center justify-center">
+                                등록된 글이 없습니다.
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="w-full flex flex-col">
@@ -71,14 +83,19 @@ function Main() {
                         </Link>
                     </div>
                     <div className="flex items-center justify-start space-x-2 p-2 overflow-auto">
-                        {data.auctionTransactionList &&
+                        {data.auctionTransactionList && data.auctionTransactionList.length > 0 ? (
                             data.auctionTransactionList.map((auction, index, key) => (
                                 <ProductCard
                                     key={index}
                                     info={auction}
                                     url={`/auction/${auction.auctionTransactionId}`}
                                 ></ProductCard>
-                            ))}
+                            ))
+                        ) : (
+                            <div className="w-full h-20 flex items-center justify-center">
+                                등록된 글이 없습니다.
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
