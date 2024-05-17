@@ -9,7 +9,7 @@ function Main() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("/api/main")
+        fetch(`${process.env.REACT_APP_CLIENT_IP}/api/main`)
             .then((res) => res.json())
             .then((res) => {
                 setData(res.data);
