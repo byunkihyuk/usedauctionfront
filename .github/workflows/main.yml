@@ -31,7 +31,7 @@ jobs:
             # .env 파일 생성
             - name: create env file
               run: |
-                  echo "REACT_APP_CLIENT_PROXY=${{ secrets.REACT_APP_CLIENT_PROXY }}" >> .env
+                  echo "REACT_APP_CLIENT_IP=${{ secrets.REACT_APP_CLIENT_PROXY }}" >> .env
 
             # 모듈 설치
             - name: install npm dependencies
