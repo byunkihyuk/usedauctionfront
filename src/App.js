@@ -4,6 +4,7 @@ import Main from "./pages/main";
 import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
 import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
+import GeneralTransaction from "./pages/general/GeneralTransaction";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/general" element={<AllGeneralTransaction />} />
+                    <Route path="/general/:generalTransactionId" element={<GeneralTransaction />} />
                 </Routes>
             </BrowserRouter>
         </div>
