@@ -71,6 +71,7 @@ function App() {
                     <Route path="/mypageUpdate/" element={<UserInfoUpdate />} />
                     <Route path="/pay/:userId" element={<PayList />} />
                     <Route path="/search" element={<SearchPage />} />
+                    <Route path="/chat" element={<MyChatRooms />} />
                 </Routes>
             </BrowserRouter>
         </div>
