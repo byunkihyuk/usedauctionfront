@@ -5,6 +5,7 @@ import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
 import MyChatRooms from "./pages/chat/MyChatRooms";
 import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
+import AllAuctionTransaction from "./pages/auction/AllAuctionTransaction";
 import GeneralTransaction from "./pages/general/GeneralTransaction";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
@@ -25,6 +26,7 @@ function App() {
                         path="/general/:generalTransactionId/updatepage"
                         element={<GeneralTransactionUpdate />}
                     />
+                    <Route path="/auction" element={<AllAuctionTransaction />} />
                 </Routes>
             </BrowserRouter>
         </div>
