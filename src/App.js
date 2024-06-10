@@ -10,6 +10,7 @@ import GeneralTransaction from "./pages/general/GeneralTransaction";
 import AuctionTransaction from "./pages/auction/AuctionTransaction";
 import UserPage from "./pages/user/UserPage";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
+import PayList from "./pages/user/pay/PayList";
 import GeneralTransactionBuyHistory from "./pages/user/general/GeneralTransactionBuyHistory";
 import GeneralTransactionSellHistory from "./pages/user/general/GeneralTransactionSellHistory";
 import AucitonTransactionBuyHistory from "./pages/user/auction/AuctionTransactionBuyHistory";
@@ -67,6 +68,7 @@ function App() {
                         element={<AucitonTransactionBuyHistory />}
                     />
                     <Route path="/mypageUpdate/" element={<UserInfoUpdate />} />
+                    <Route path="/pay/:userId" element={<PayList />} />
                 </Routes>
             </BrowserRouter>
         </div>
