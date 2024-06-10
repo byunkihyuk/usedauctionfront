@@ -8,6 +8,7 @@ import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
 import AllAuctionTransaction from "./pages/auction/AllAuctionTransaction";
 import GeneralTransaction from "./pages/general/GeneralTransaction";
 import AuctionTransaction from "./pages/auction/AuctionTransaction";
+import SearchPage from "./pages/SearchPage";
 import UserPage from "./pages/user/UserPage";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import PayList from "./pages/user/pay/PayList";
@@ -69,6 +70,7 @@ function App() {
                     />
                     <Route path="/mypageUpdate/" element={<UserInfoUpdate />} />
                     <Route path="/pay/:userId" element={<PayList />} />
+                    <Route path="/search" element={<SearchPage />} />
                 </Routes>
             </BrowserRouter>
         </div>
