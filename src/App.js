@@ -8,6 +8,7 @@ import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
 import AllAuctionTransaction from "./pages/auction/AllAuctionTransaction";
 import GeneralTransaction from "./pages/general/GeneralTransaction";
 import AuctionTransaction from "./pages/auction/AuctionTransaction";
+import UserPage from "./pages/user/UserPage";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
 import AuctionTransactionPost from "./pages/auction/AuctionTransactionPost";
@@ -36,6 +37,7 @@ function App() {
                         element={<AuctionTransactionPostUpdate />}
                     />
                     <Route path="/auction/post" element={<AuctionTransactionPost />} />
+                    <Route path="/user/" element={<UserPage />} />
                 </Routes>
             </BrowserRouter>
         </div>
