@@ -12,6 +12,7 @@ import UserPage from "./pages/user/UserPage";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import GeneralTransactionBuyHistory from "./pages/user/general/GeneralTransactionBuyHistory";
 import GeneralTransactionSellHistory from "./pages/user/general/GeneralTransactionSellHistory";
+import AucitonTransactionBuyHistory from "./pages/user/auction/AuctionTransactionBuyHistory";
 import AucitonTransactionSellHistory from "./pages/user/auction/AuctionTransactionSellHisotry";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
 import AuctionTransactionBidHistory from "./pages/user/auction/AuctionTransactionBidHistory";
@@ -59,6 +60,10 @@ function App() {
                     <Route
                         path="/user/:userId/auction-sell-history"
                         element={<AucitonTransactionSellHistory />}
+                    />
+                    <Route
+                        path="/user/:userId/auction-buy-history"
+                        element={<AucitonTransactionBuyHistory />}
                     />
                 </Routes>
             </BrowserRouter>
