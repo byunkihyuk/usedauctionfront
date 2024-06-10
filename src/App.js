@@ -14,6 +14,7 @@ import GeneralTransactionBuyHistory from "./pages/user/general/GeneralTransactio
 import GeneralTransactionSellHistory from "./pages/user/general/GeneralTransactionSellHistory";
 import AucitonTransactionBuyHistory from "./pages/user/auction/AuctionTransactionBuyHistory";
 import AucitonTransactionSellHistory from "./pages/user/auction/AuctionTransactionSellHisotry";
+import UserInfoUpdate from "./pages/user/UserInfoUpdate";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
 import AuctionTransactionBidHistory from "./pages/user/auction/AuctionTransactionBidHistory";
 import AuctionTransactionPost from "./pages/auction/AuctionTransactionPost";
@@ -65,6 +66,7 @@ function App() {
                         path="/user/:userId/auction-buy-history"
                         element={<AucitonTransactionBuyHistory />}
                     />
+                    <Route path="/mypageUpdate/" element={<UserInfoUpdate />} />
                 </Routes>
             </BrowserRouter>
         </div>
