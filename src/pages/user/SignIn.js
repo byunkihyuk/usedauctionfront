@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Layouts from "../../components/Layout";
 import CustomButton from "../../components/CustomButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../../components/CustomInput";
 
 function SignIn() {
@@ -31,29 +31,8 @@ function SignIn() {
             passwordRef.current.focus();
             return;
         }
-        // axios
-        //     .post("/api/sign-in", {
-        //         username: username,
-        //         password: password,
-        //     })
-        //     .then((res) => res.data)
-        //     .then((res) => {
-        //         console.log(res);
-        //         if (res.status === "success") {
-        //             axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-        //             movePage("/");
-        //         } else {
-        //             setDescriptionMessage(res.data.message);
-        //         }
-        //     })
-        //     .catch((res) => {
-        //         console.log(res);
-        //         if (res.response.data.status !== "success") {
-        //             setDescriptionMessage(res.response.data.message);
-        //         }
-        //     });
 
-        fetch("/api/sign-in", {
+        fetch(`${process.env.REACT_APP_CLIENT_IP}/api/sign-in`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -66,10 +45,14 @@ function SignIn() {
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === "success") {
-                    movePage("/");
+                    localStorage.setItem("nickname", res.data.nickname);
                     localStorage.setItem("loginToken", res.data.token);
-                } else if (res.status === "error") {
-                    setDescriptionMessage(res.message);
+                    let loginTime = new Date();
+                    // 로그인 만료시간 1시간
+                    localStorage.setItem("loginInfo", loginTime.getTime() + 3600000);
+                    movePage("/");
+                    alert("Token console 확인");
+                    console.log(res.data.token);
                 } else {
                     setDescriptionMessage(res.message);
                 }
@@ -83,14 +66,20 @@ function SignIn() {
 
     return (
         <Layouts>
-            <div className="w-80 h-auto p-10 flex flex-col items-center justify-center  space-y-10 border-purple-600 border-[1px] rounded-xl">
-                <div className="bg-gray-400 w-full h-24">아이콘</div>
+            <div className="w-80 h-auto p-10 flex flex-col items-center justify-center  space-y-10 rounded-xl">
+                <Link
+                    to={"/"}
+                    className="p-2 cursor-pointer"
+                    //onClick={mainPage}
+                >
+                    <p className="font-bold text-purple-500 text-lg">usedauction</p>
+                </Link>
                 <div className="flex w-full flex-col items-start justify-center">
                     <label htmlFor="username">아이디</label>
                     <CustomInput
                         ref={usernameRef}
                         id={"username"}
-                        placeholder="아이디 입력"
+                        placeholder="아이디 입력(E-mail)"
                         onChange={onChangeUsername}
                     />
                 </div>
@@ -109,9 +98,9 @@ function SignIn() {
                 </div>
                 <div className="flex flex-col w-full space-y-2">
                     <div className="w-full text-sm text-purple-600">
-                        <p>
-                            <a href="/">아이디 / 비밀번호 찾기</a>
-                        </p>
+                        <div className="cursor-pointer" onClick={() => movePage("/findPw")}>
+                            비밀번호 찾기
+                        </div>
                     </div>
                     <div className="flex items-center justify-center space-x-4 w-full">
                         <CustomButton text="로그인" onClick={signIn} size={"full"}></CustomButton>
