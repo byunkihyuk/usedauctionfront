@@ -11,6 +11,7 @@ import AuctionTransaction from "./pages/auction/AuctionTransaction";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
 import AuctionTransactionPost from "./pages/auction/AuctionTransactionPost";
+import AuctionTransactionPostUpdate from "./pages/auction/AuctionTransactionPostUpdate";
 
 function App() {
     return (
@@ -30,6 +31,10 @@ function App() {
                     />
                     <Route path="/auction" element={<AllAuctionTransaction />} />
                     <Route path="/auction/:auctionTransactionId" element={<AuctionTransaction />} />
+                    <Route
+                        path="/auction/:auctionTransactionId/updatepage"
+                        element={<AuctionTransactionPostUpdate />}
+                    />
                     <Route path="/auction/post" element={<AuctionTransactionPost />} />
                 </Routes>
             </BrowserRouter>
