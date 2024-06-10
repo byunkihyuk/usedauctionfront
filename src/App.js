@@ -5,6 +5,7 @@ import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
 import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
 import GeneralTransaction from "./pages/general/GeneralTransaction";
+import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/sign-up" element={<SignUp />} />
                     <Route path="/general" element={<AllGeneralTransaction />} />
                     <Route path="/general/:generalTransactionId" element={<GeneralTransaction />} />
+                    <Route path="/general/post" element={<GeneralTransactionPost />} />
                 </Routes>
             </BrowserRouter>
         </div>
