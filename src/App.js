@@ -3,6 +3,7 @@ import "./App.css";
 import Main from "./pages/main";
 import SignIn from "./pages/user/SignIn";
 import SignUp from "./pages/user/SignUp";
+import AllGeneralTransaction from "./pages/general/AllGeneralTransaction";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route path="/main" element={<Main />} />
                     <Route path="/sign-in" element={<SignIn />} />
                     <Route path="/sign-up" element={<SignUp />} />
+                    <Route path="/general" element={<AllGeneralTransaction />} />
                 </Routes>
             </BrowserRouter>
         </div>
