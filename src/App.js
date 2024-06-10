@@ -13,6 +13,7 @@ import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
 import AuctionTransactionPost from "./pages/auction/AuctionTransactionPost";
 import AuctionTransactionPostUpdate from "./pages/auction/AuctionTransactionPostUpdate";
+import FindPassword from "./pages/user/FindPassword";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                     />
                     <Route path="/auction/post" element={<AuctionTransactionPost />} />
                     <Route path="/user/" element={<UserPage />} />
+                    <Route path="/findPw" element={<FindPassword />} />
                 </Routes>
             </BrowserRouter>
         </div>
