@@ -9,6 +9,8 @@ import AllAuctionTransaction from "./pages/auction/AllAuctionTransaction";
 import GeneralTransaction from "./pages/general/GeneralTransaction";
 import AuctionTransaction from "./pages/auction/AuctionTransaction";
 import SearchPage from "./pages/SearchPage";
+import SearchAuction from "./pages/SearchAuction";
+import SearchGeneral from "./pages/SearchGeneral";
 import UserPage from "./pages/user/UserPage";
 import GeneralTransactionPost from "./pages/general/GeneralTransactionPost";
 import PayList from "./pages/user/pay/PayList";
@@ -18,6 +20,8 @@ import AucitonTransactionBuyHistory from "./pages/user/auction/AuctionTransactio
 import AucitonTransactionSellHistory from "./pages/user/auction/AuctionTransactionSellHisotry";
 import UserInfoUpdate from "./pages/user/UserInfoUpdate";
 import GeneralTransactionUpdate from "./pages/general/GeneralTransactionUpdate";
+import GeneralTransactionSendBuyRequest from "./pages/user/general/GeneralTransactionSendBuyRequest";
+import GeneralTransactionRecevieBuyRequest from "./pages/user/general/GeneralTransactionReceiveBuyRequest";
 import AuctionTransactionBidHistory from "./pages/user/auction/AuctionTransactionBidHistory";
 import AuctionTransactionPost from "./pages/auction/AuctionTransactionPost";
 import AuctionTransactionPostUpdate from "./pages/auction/AuctionTransactionPostUpdate";
@@ -49,6 +53,14 @@ function App() {
                     <Route path="/user/" element={<UserPage />} />
                     <Route path="/findPw" element={<FindPassword />} />
                     <Route
+                        path="/user/:userId/general/send-buy-request"
+                        element={<GeneralTransactionSendBuyRequest />}
+                    />
+                    <Route
+                        path="/user/:userId/general/receive-buy-request"
+                        element={<GeneralTransactionRecevieBuyRequest />}
+                    />
+                    <Route
                         path="/user/:userId/general-sell-history"
                         element={<GeneralTransactionSellHistory />}
                     />
@@ -69,9 +81,11 @@ function App() {
                         element={<AucitonTransactionBuyHistory />}
                     />
                     <Route path="/mypageUpdate/" element={<UserInfoUpdate />} />
-                    <Route path="/pay/:userId" element={<PayList />} />
                     <Route path="/search" element={<SearchPage />} />
+                    <Route path="/search/general" element={<SearchGeneral />} />
+                    <Route path="/search/auction" element={<SearchAuction />} />
                     <Route path="/chat" element={<MyChatRooms />} />
+                    <Route path="/pay/:userId" element={<PayList />} />
                 </Routes>
             </BrowserRouter>
         </div>

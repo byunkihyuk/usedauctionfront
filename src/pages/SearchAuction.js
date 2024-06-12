@@ -3,7 +3,7 @@ import Layouts from "../components/Layout";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 
-function SearchGeneral() {
+function SearchAuction() {
     const [param, setParam] = useSearchParams();
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -30,4 +30,4 @@ function SearchGeneral() {
     );
 }
 
-export default SearchGeneral;
+export default SearchAuction;
