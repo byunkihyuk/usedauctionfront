@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Layouts from "../../../components/Layout";
-import { error } from "jquery";
 import ProductCardHistory from "../../../components/ProductCardHistory";
 import Loading from "../../../components/Loading";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -144,7 +143,7 @@ function AuctionTransactionBuyHistory() {
                 </div>
             </div>
             {data && data.length > 0 ? (
-                <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 place-items-center justify-center">
+                <div className="grid lg:grid-cols-2 lg:gap-y-2 lg:gap-x-10 sm:grid-cols-1 md:grid-cols-2 place-items-center justify-center">
                     {data.map((data, index) => (
                         <ProductCardHistory
                             key={index}
