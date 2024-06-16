@@ -169,7 +169,7 @@ function GeneralTransaction() {
     }
 
     function onClickBuyerChatting(item) {
-        if (author) {
+        if (!author) {
             return;
         }
         fetch(`${process.env.REACT_APP_CLIENT_IP}/api/chat/buyer`, {
@@ -177,12 +177,14 @@ function GeneralTransaction() {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
             },
-            body: JSON.parse({
+            body: JSON.stringify({
                 buyer: item.buyer,
+                generalTransactionId: generalTransactionId,
             }),
         })
             .then((res) => res.json())
             .then((res) => {
+                console.log(res);
                 if (res.status === "success") {
                     movePage("/chat", {
                         state: {
