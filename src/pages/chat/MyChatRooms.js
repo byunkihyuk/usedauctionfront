@@ -96,6 +96,7 @@ function MyChatRooms() {
 
     function onClickChatRoomOpen(item) {
         setMessageLoading(true);
+        setSelectRoom(item.roomId);
         fetch(`${process.env.REACT_APP_CLIENT_IP}/api/chat/${item.roomId}?start=${0}`, {
             method: "GET",
             headers: {
@@ -107,11 +108,11 @@ function MyChatRooms() {
                 if (res.status === "success") {
                     setMessageList(res.data);
                     setMessageCount(50);
-                    setSelectRoom(item.roomId);
                     setSelectReceiver(item.receiver);
                     //connect(data);
                 } else {
                     alert("채팅 불러오기 실패\n" + res.message);
+                    setSelectRoom(null);
                 }
                 setMessageLoading(false);
             })
@@ -304,6 +305,7 @@ function MyChatRooms() {
                                     productImg={
                                         item.productThumbnail ? item.productThumbnail : noimage
                                     }
+                                    bgColor={item.roomId == selectRoom ? "bg-purple-200" : ""}
                                 ></ChatRoom>
                             ))
                         ) : (

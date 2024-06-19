@@ -1,4 +1,4 @@
-function ChatRoom({ nickname, messageTime, message, productImg, onClickChatRoomHandle }) {
+function ChatRoom({ nickname, messageTime, message, productImg, onClickChatRoomHandle, bgColor }) {
     function dateFormat() {
         let now = new Date();
         let lastTime = new Date(messageTime);
@@ -34,7 +34,7 @@ function ChatRoom({ nickname, messageTime, message, productImg, onClickChatRoomH
 
     return (
         <div
-            className="h-20 flex items-center justify-between cursor-pointer hover:bg-purple-100"
+            className={`h-20 flex items-center justify-between cursor-pointer hover:bg-purple-100 ${bgColor}`}
             onClick={onClickChatRoomHandle}
         >
             <div className="h-full w-auto flex flex-col p-2">
