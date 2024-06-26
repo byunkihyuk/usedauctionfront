@@ -29,7 +29,6 @@ function GeneralTransaction() {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 if (res.status === "success") {
                     setData(res.data);
                     setLoading(false);
@@ -184,7 +183,6 @@ function GeneralTransaction() {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 if (res.status === "success") {
                     movePage("/chat", {
                         state: {
@@ -343,12 +341,16 @@ function GeneralTransaction() {
         <Layouts>
             {loading && <Loading></Loading>}
             <div className="flex flex-col items-center justify-center space-y-4">
-                <div className="flex items-center justify-center">
-                    <div className="relative w-[500px] h-[500px]">
+                <div className="flex mobile:flex-col items-center justify-center">
+                    <div className="relative pc:w-[500px] pc:h-[500px] mobile:w-96 mobile:h-96">
                         {data && data.images.length > 0 ? (
                             <ImageSlider images={data.images}></ImageSlider>
                         ) : (
-                            <img alt="noimage" src={noimage} className="w-[500px] h-[500px]"></img>
+                            <img
+                                alt="noimage"
+                                src={noimage}
+                                className="pc:w-[500px] pc:h-[500px] mobile:w-96 mobile:h-96"
+                            ></img>
                         )}
 
                         {data && data.transactionState !== "판매중" ? (
@@ -360,7 +362,7 @@ function GeneralTransaction() {
                             <></>
                         )}
                     </div>
-                    <div className="relative w-[500px] h-[500px] flex flex-col items-start justify-between  p-5">
+                    <div className="relative pc:w-[500px] pc:h-[500px] mobile:w-96 mobile:h-96 flex flex-col items-start justify-between  pc:p-5 mobile:p-2">
                         {author && (
                             <button
                                 className="absolute right-2 top-2 w-6 bg-white outline outline-[1px] outline-gray-300 h-6 rounded-full flex flex-col items-center justify-center space-y-[2px]"
@@ -441,7 +443,7 @@ function GeneralTransaction() {
                     </div>
                 </div>
                 <hr className="w-full"></hr>
-                <div className="w-[1000px] p-2 whitespace-pre">
+                <div className="pc:w-[1000px] mobile:w-96 p-2 whitespace-pre">
                     <div className="text-wrap text-left">{data && data.content}</div>
                 </div>
             </div>

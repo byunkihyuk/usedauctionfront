@@ -289,7 +289,7 @@ function AuctionTransactionBidHistory() {
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="space-y-2 relative">
+            <div className="space-y-2 relative mobile:p-2">
                 <div className="text-lg font-bold text-left border-b-2">내 경매 입찰 내역</div>
                 <div className="w-full flex items-center justify-end">
                     <div className="w-48">
@@ -302,7 +302,6 @@ function AuctionTransactionBidHistory() {
                         ></CustomInput>
                     </div>
                 </div>
-
                 <table className="">
                     <thead>
                         <tr>

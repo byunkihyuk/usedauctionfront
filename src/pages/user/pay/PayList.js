@@ -236,7 +236,7 @@ function PayList() {
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="space-y-2">
+            <div className="space-y-2 mobile:p-2">
                 <div className="w-full flex items-center justify-end">
                     <div className="w-48">
                         <CustomInput
@@ -248,173 +248,205 @@ function PayList() {
                         ></CustomInput>
                     </div>
                 </div>
-                <table className="">
-                    <thead>
-                        <tr>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("payInfoId");
-                                }}
-                            >
-                                번호{prevColumn === "payInfoId" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("seller");
-                                }}
-                            >
-                                판매자{prevColumn === "seller" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("buyer");
-                                }}
-                            >
-                                구매자{prevColumn === "buyer" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("transactionRequestType");
-                                }}
-                            >
-                                거래 종류
-                                {prevColumn === "transactionRequestType" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("transactionRequestState");
-                                }}
-                            >
-                                현재 상태
-                                {prevColumn === "transactionRequestState" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("transactionMoney");
-                                }}
-                            >
-                                거래 금액
-                                {prevColumn === "transactionMoney" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("usedTransactionType");
-                                }}
-                            >
-                                거래 타입
-                                {prevColumn === "usedTransactionType" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("generalTransactionId");
-                                }}
-                            >
-                                중고 글
-                                {prevColumn === "generalTransactionId" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("auctionTransactionId");
-                                }}
-                            >
-                                경매 글
-                                {prevColumn === "auctionTransactionId" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("transactionTime");
-                                }}
-                            >
-                                거래일{prevColumn === "transactionTime" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                            <th
-                                className="border p-1 cursor-pointer"
-                                onClick={() => {
-                                    tableSort("transactionUpdateTime");
-                                }}
-                            >
-                                최종 수정일
-                                {prevColumn === "transactionUpdateTime" ? (sort ? "▲" : "▼") : ""}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {vdata && vdata.length > 0 ? (
-                            vdata.map((item, index) => (
-                                <tr key={index} className="text-sm">
-                                    <td className="border p-1">{item.payInfoId}</td>
-                                    <td
-                                        className={`border p-1 ${
-                                            item.seller ? "cursor-pointer" : ""
-                                        }`}
-                                        onClick={() => {
-                                            if (item.seller)
-                                                movePage(`/user?user-id=${item.seller}`);
-                                        }}
-                                    >
-                                        {item.sellerNickname}
-                                    </td>
-                                    <td
-                                        className={`border p-1 ${
-                                            item.buyer ? "cursor-pointer" : ""
-                                        }`}
-                                        onClick={() => {
-                                            if (item.buyer) movePage(`/user?user-id=${item.buyer}`);
-                                        }}
-                                    >
-                                        {item.buyerNickname}
-                                    </td>
-                                    <td className="border p-1">{item.transactionRequestType}</td>
-                                    <td className="border p-1">{item.transactionRequestState}</td>
-                                    <td className="border p-1">{item.transactionMoney}</td>
-                                    <td className="border p-1">{item.usedTransactionType}</td>
-                                    <td
-                                        className={`border p-1 ${
-                                            item.generalTransactionId ? "cursor-pointer" : ""
-                                        }`}
-                                        onClick={() => {
-                                            if (item.generalTransactionId)
-                                                movePage(`/general/${item.generalTransactionId}`);
-                                        }}
-                                    >
-                                        {item.generalTransactionId}
-                                    </td>
-                                    <td
-                                        className={`border p-1 ${
-                                            item.auctionTransactionId ? "cursor-pointer" : ""
-                                        }`}
-                                        onClick={() => {
-                                            if (item.auctionTransactionId)
-                                                movePage(`/auction/${item.auctionTransactionId}`);
-                                        }}
-                                    >
-                                        {item.auctionTransactionId}
-                                    </td>
-                                    <td className="border p-1">
-                                        {dateFormat(item.transactionTime)}
-                                    </td>
-                                    <td className="border p-1">
-                                        {dateFormat(item.transactionUpdateTime)}
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
+                <div className="mobile:w-96 overflow-auto">
+                    <table className="w-[1000px]">
+                        <thead>
                             <tr>
-                                <td className="col-span-11">값이 없습니다</td>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("payInfoId");
+                                    }}
+                                >
+                                    번호{prevColumn === "payInfoId" ? (sort ? "▲" : "▼") : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("seller");
+                                    }}
+                                >
+                                    판매자{prevColumn === "seller" ? (sort ? "▲" : "▼") : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("buyer");
+                                    }}
+                                >
+                                    구매자{prevColumn === "buyer" ? (sort ? "▲" : "▼") : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("transactionRequestType");
+                                    }}
+                                >
+                                    거래 종류
+                                    {prevColumn === "transactionRequestType"
+                                        ? sort
+                                            ? "▲"
+                                            : "▼"
+                                        : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("transactionRequestState");
+                                    }}
+                                >
+                                    현재 상태
+                                    {prevColumn === "transactionRequestState"
+                                        ? sort
+                                            ? "▲"
+                                            : "▼"
+                                        : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("transactionMoney");
+                                    }}
+                                >
+                                    거래 금액
+                                    {prevColumn === "transactionMoney" ? (sort ? "▲" : "▼") : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("usedTransactionType");
+                                    }}
+                                >
+                                    거래 타입
+                                    {prevColumn === "usedTransactionType" ? (sort ? "▲" : "▼") : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("generalTransactionId");
+                                    }}
+                                >
+                                    중고 글
+                                    {prevColumn === "generalTransactionId"
+                                        ? sort
+                                            ? "▲"
+                                            : "▼"
+                                        : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("auctionTransactionId");
+                                    }}
+                                >
+                                    경매 글
+                                    {prevColumn === "auctionTransactionId"
+                                        ? sort
+                                            ? "▲"
+                                            : "▼"
+                                        : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("transactionTime");
+                                    }}
+                                >
+                                    거래일
+                                    {prevColumn === "transactionTime" ? (sort ? "▲" : "▼") : ""}
+                                </th>
+                                <th
+                                    className="border p-1 cursor-pointer"
+                                    onClick={() => {
+                                        tableSort("transactionUpdateTime");
+                                    }}
+                                >
+                                    최종 수정일
+                                    {prevColumn === "transactionUpdateTime"
+                                        ? sort
+                                            ? "▲"
+                                            : "▼"
+                                        : ""}
+                                </th>
                             </tr>
-                        )}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {vdata && vdata.length > 0 ? (
+                                vdata.map((item, index) => (
+                                    <tr key={index} className="text-sm">
+                                        <td className="border p-1">{item.payInfoId}</td>
+                                        <td
+                                            className={`border p-1 ${
+                                                item.seller ? "cursor-pointer" : ""
+                                            }`}
+                                            onClick={() => {
+                                                if (item.seller)
+                                                    movePage(`/user?user-id=${item.seller}`);
+                                            }}
+                                        >
+                                            {item.sellerNickname}
+                                        </td>
+                                        <td
+                                            className={`border p-1 ${
+                                                item.buyer ? "cursor-pointer" : ""
+                                            }`}
+                                            onClick={() => {
+                                                if (item.buyer)
+                                                    movePage(`/user?user-id=${item.buyer}`);
+                                            }}
+                                        >
+                                            {item.buyerNickname}
+                                        </td>
+                                        <td className="border p-1">
+                                            {item.transactionRequestType}
+                                        </td>
+                                        <td className="border p-1">
+                                            {item.transactionRequestState}
+                                        </td>
+                                        <td className="border p-1">{item.transactionMoney}</td>
+                                        <td className="border p-1">{item.usedTransactionType}</td>
+                                        <td
+                                            className={`border p-1 ${
+                                                item.generalTransactionId ? "cursor-pointer" : ""
+                                            }`}
+                                            onClick={() => {
+                                                if (item.generalTransactionId)
+                                                    movePage(
+                                                        `/general/${item.generalTransactionId}`
+                                                    );
+                                            }}
+                                        >
+                                            {item.generalTransactionId}
+                                        </td>
+                                        <td
+                                            className={`border p-1 ${
+                                                item.auctionTransactionId ? "cursor-pointer" : ""
+                                            }`}
+                                            onClick={() => {
+                                                if (item.auctionTransactionId)
+                                                    movePage(
+                                                        `/auction/${item.auctionTransactionId}`
+                                                    );
+                                            }}
+                                        >
+                                            {item.auctionTransactionId}
+                                        </td>
+                                        <td className="border p-1">
+                                            {dateFormat(item.transactionTime)}
+                                        </td>
+                                        <td className="border p-1">
+                                            {dateFormat(item.transactionUpdateTime)}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td className="col-span-11">값이 없습니다</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
                 <div className="flex items-center justify-center">
                     <div
                         className={`w-10 h-10 flex items-center justify-center  ${

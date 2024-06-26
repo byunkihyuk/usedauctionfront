@@ -104,7 +104,7 @@ function AllGeneralTransaction() {
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="max-w-[1000px] w-full flex flex-col items-center justify-center space-y-5">
+            <div className=" w-full flex flex-col items-center justify-center space-y-5">
                 <div className="w-full h-10 flex items-center justify-between border-b-2">
                     <div className=" flex items-center justify-center">중고 거래 전체 글</div>
                     <div className="flex space-x-5">
@@ -215,7 +215,7 @@ function AllGeneralTransaction() {
                 <div
                     className={`${
                         data && data.totalCount > 0
-                            ? "grid grid-cols-4 gap-4"
+                            ? "grid grid-cols-4 gap-4 mobile:grid-cols-2 mobile:gap-2"
                             : "h-80 flex items-center justify-center"
                     }`}
                 >
@@ -230,7 +230,7 @@ function AllGeneralTransaction() {
                           ))
                         : "등록된 중고 거래가 없습니다."}
                 </div>
-                <div className="grid grid-flow-col">
+                <div className="grid mobile:grid-cols-8 pc:grid-flow-col  ">
                     {pageNumber > 1 ? (
                         <a
                             className=" w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-purple-200 "

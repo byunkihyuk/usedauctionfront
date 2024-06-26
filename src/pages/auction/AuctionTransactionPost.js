@@ -219,11 +219,11 @@ function AuctionTransactionPost() {
 
     return (
         <Layouts>
-            <div className="min-w-[1000px] flex flex-col items-center justify-center space-y-10">
+            <div className="pc:min-w-[1000px] mobile:w-96 mobile:p-2 flex flex-col items-center justify-center space-y-10">
                 <div className="w-full h-full flex items-center justify-center">
-                    <div className="min-w-32">사진 등록</div>
+                    <div className="pc:min-w-32 mobile:min-w-24">사진 등록</div>
 
-                    <div className="w-[700px] flex items-center justify-start p-2 space-x-2 overflow-auto">
+                    <div className="pc:w-[700px] mobile:w-full flex items-center justify-start p-2 space-x-2 overflow-auto">
                         {imgList &&
                             imgList.map((data, index) => (
                                 <div
@@ -270,10 +270,10 @@ function AuctionTransactionPost() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         제목<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px]">
+                    <div className="pc:w-[700px] mobile:w-full">
                         <CustomInput
                             ref={titleRef}
                             placeholder={"제목을 입력해주세요."}
@@ -283,10 +283,10 @@ function AuctionTransactionPost() {
                     </div>
                 </div>
                 <div className=" w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
-                        경매 시작 가격<span className="text-red-600">*</span>
+                    <div className="pc:min-w-32 mobile:min-w-24">
+                        경매 시작가<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px]">
+                    <div className="pc:w-[700px] mobile:w-full">
                         <CustomInput
                             ref={priceRef}
                             placeholder={"가격을 입력해주세요."}
@@ -297,10 +297,10 @@ function AuctionTransactionPost() {
                     </div>
                 </div>
                 <div className=" w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         경매 기간<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px] flex  items-center justify-center space-x-2">
+                    <div className="w-[700px] flex mobile:flex-col  items-center justify-center space-x-2">
                         <div className="w-full space-y-1">
                             <input
                                 ref={startedAtRef}
@@ -336,11 +336,11 @@ function AuctionTransactionPost() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         결제 방법<span className="text-red-600">*</span>
                     </div>
                     <select
-                        className="w-[700px] border-2 border-purple-300 p-1 rounded-md"
+                        className="pc:w-[700px] mobile:w-full border-2 border-purple-300 p-1 rounded-md"
                         onChange={onChangePayment}
                         ref={paymentRef}
                         value={payment}
@@ -353,10 +353,10 @@ function AuctionTransactionPost() {
                     </select>
                 </div>
                 <div className="w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         거래 방식<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px]">
+                    <div className="pc:w-[700px] mobile:w-full">
                         <select
                             ref={transactionModeRef}
                             className="w-full border-2 border-purple-300 p-1 rounded-md"
@@ -372,10 +372,10 @@ function AuctionTransactionPost() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center  justify-center ">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         거래 위치<span className="text-red-600">*</span>
                     </div>
-                    <div className=" flex flex-col w-[700px] space-y-2">
+                    <div className=" flex flex-col pc:w-[700px] mobile:w-full space-y-2">
                         <div onClick={() => setVisibleModal(true)}>
                             <CustomInput
                                 ref={addressRef}
@@ -393,9 +393,9 @@ function AuctionTransactionPost() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
-                    <div className="min-w-32">제품 설명</div>
+                    <div className="pc:min-w-32 mobile:min-w-24">제품 설명</div>
                     <textarea
-                        className="p-2 border-2 border-purple-300 rounded-md w-[700px] resize-none"
+                        className="p-2 border-2 border-purple-300 rounded-md pc:w-[700px] mobile:w-full  resize-none"
                         placeholder="설명을 입력해주세요."
                         onChange={onChangeContent}
                         rows={10}
