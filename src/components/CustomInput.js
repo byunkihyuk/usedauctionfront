@@ -61,7 +61,7 @@ const CustomInput = forwardRef(
                             className="absolute top-[6px] bottom-0 right-2 cursor-pointer outline-red-500"
                             height={24}
                             width={24}
-                            onClick={() => movePage(`/search?${value}`)}
+                            onClick={() => movePage(`/search?keyword=${value}`)}
                         ></SearchIcon>
                     )
                     // ) : (

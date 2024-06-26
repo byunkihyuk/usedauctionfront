@@ -229,16 +229,16 @@ function GeneralTransactionUpdate() {
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="min-w-[1000px] flex flex-col items-center justify-center space-y-10">
+            <div className="pc:min-w-[1000px] mobile:w-96 mobile:p-2 flex flex-col items-center justify-center space-y-10">
                 <div className="w-full h-full flex items-center justify-center">
-                    <div className="min-w-32">사진 등록</div>
+                    <div className="pc:min-w-32 mobile:min-w-24">사진 등록</div>
 
-                    <div className="w-[700px] flex items-center justify-start p-2 space-x-2 overflow-auto">
+                    <div className="pc:w-[700px] mobile:w-full flex items-center justify-start p-2 space-x-2 overflow-auto">
                         {imgList &&
                             imgList.map((data, index) => (
                                 <div
                                     key={index}
-                                    className="relative min-w-32 min-h-32 flex items-center justify-center border-2 rounded-lg bg-white"
+                                    className="relative pc:min-w-32 mobile:min-w-24 min-h-32 flex items-center justify-center border-2 rounded-lg bg-white"
                                 >
                                     <img
                                         alt="업로드 이미지"
@@ -258,7 +258,7 @@ function GeneralTransactionUpdate() {
                             ))}
                         {imgList.length < 10 ? (
                             <div
-                                className="relative min-w-32 min-h-32 flex items-center justify-center border-2 rounded-lg bg-gray-100 cursor-pointer"
+                                className="relative pc:min-w-32 mobile:min-w-24 min-h-32 flex items-center justify-center border-2 rounded-lg bg-gray-100 cursor-pointer"
                                 onClick={onClickAddImg}
                             >
                                 <span className="absolute rotate-90 h-1 w-10 bg-gray-400"></span>
@@ -280,10 +280,10 @@ function GeneralTransactionUpdate() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         제목<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px]">
+                    <div className="pc:w-[700px] mobile:w-full">
                         <CustomInput
                             ref={titleRef}
                             placeholder={"제목을 입력해주세요."}
@@ -293,10 +293,10 @@ function GeneralTransactionUpdate() {
                     </div>
                 </div>
                 <div className=" w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         가격<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px]">
+                    <div className="pc:w-[700px] mobile:w-full">
                         <CustomInput
                             ref={priceRef}
                             placeholder={"가격을 입력해주세요."}
@@ -307,11 +307,11 @@ function GeneralTransactionUpdate() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         결제 방법<span className="text-red-600">*</span>
                     </div>
                     <select
-                        className="w-[700px] border-2 border-purple-300 p-1 rounded-md"
+                        className="pc:w-[700px] mobile:w-full border-2 border-purple-300 p-1 rounded-md"
                         onChange={(e) => setPayment(e.target.value)}
                         ref={paymentRef}
                         value={payment}
@@ -324,10 +324,10 @@ function GeneralTransactionUpdate() {
                     </select>
                 </div>
                 <div className="w-full h-full flex items-center  justify-center">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         거래 방식<span className="text-red-600">*</span>
                     </div>
-                    <div className="w-[700px]">
+                    <div className="pc:w-[700px] mobile:w-full">
                         <select
                             ref={transactionModeRef}
                             className="w-full border-2 border-purple-300 p-1 rounded-md"
@@ -343,10 +343,10 @@ function GeneralTransactionUpdate() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center  justify-center ">
-                    <div className="min-w-32">
+                    <div className="pc:min-w-32 mobile:min-w-24">
                         거래 위치<span className="text-red-600">*</span>
                     </div>
-                    <div className=" flex flex-col w-[700px] space-y-2">
+                    <div className=" flex flex-col pc:w-[700px] mobile:w-full space-y-2">
                         <div onClick={() => setVisibleModal(true)}>
                             <CustomInput
                                 ref={addressRef}
@@ -364,9 +364,9 @@ function GeneralTransactionUpdate() {
                     </div>
                 </div>
                 <div className="w-full h-full flex items-center justify-center">
-                    <div className="min-w-32">제품 설명</div>
+                    <div className="pc:min-w-32 mobile:min-w-24">제품 설명</div>
                     <textarea
-                        className="p-2 border-2 border-purple-300 rounded-md w-[700px] resize-none"
+                        className="p-2 border-2 border-purple-300 rounded-md pc:w-[700px] mobile:w-full resize-none"
                         placeholder="설명을 입력해주세요."
                         onChange={(e) => setContent(e.target.value)}
                         rows={10}

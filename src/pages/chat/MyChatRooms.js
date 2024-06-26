@@ -135,6 +135,7 @@ function MyChatRooms() {
             })
             .catch((error) => console.log(error));
     }
+
     useEffect(() => {
         if (selectRoom != null) {
             try {
@@ -182,6 +183,7 @@ function MyChatRooms() {
     function onClickChatRoomClose() {
         setMessageList(null);
         setMessageLoading(false);
+        setSelectRoom(null);
         // 연결 끊기
         if (client.current != null) {
             client.current.deactivate();
@@ -282,12 +284,12 @@ function MyChatRooms() {
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="min-w-[1000px] border-b-2">
-                <div className="flex items-center justify-center h-20 border-y-2 text-2xl">
+            <div className="pc:min-w-[1000px] border-b-2">
+                <div className="flex items-center justify-center pc:h-20 mobile:h-10 border-y-2 pc:text-2xl mobile:text-xl">
                     채팅방
                 </div>
-                <div className="flex  ">
-                    <div className=" w-[400px] min-w-[300px] h-[600px] overflow-y-auto flex flex-col">
+                <div className="flex relative h-full">
+                    <div className=" pc:w-[400px] pc:min-w-[300px] mobile:w-96 mobile:h-full pc:min-h-[600px] overflow-y-auto flex flex-col">
                         {data && data.length > 0 ? (
                             data.map((item, index) => (
                                 <ChatRoom
@@ -322,8 +324,11 @@ function MyChatRooms() {
                     </div>
 
                     {messageList ? (
-                        <div className="w-[600px]  flex flex-col justify-between border-l-2">
-                            <div className="max-h-[440px]  w-full">
+                        <div
+                            className={`pc:w-[600px] mobile:fixed mobile:top-12 mobile:left-0 mobile:w-full
+                             bg-white mobile:z-50 mobile:h-[calc(100%-48px)] flex flex-col pc:justify-between mobile:justify-start pc:border-l-2`}
+                        >
+                            <div className="pc:max-h-[440px] mobile:h-full w-full mobile:flex mobile:flex-col ">
                                 <div className="flex items-center justify-between h-10 p-2 border-b-2">
                                     {/* <a href={`/user?user-id=${receiver}`}>
                                         <img
@@ -346,10 +351,10 @@ function MyChatRooms() {
                                     ></Xsvg>
                                 </div>
                                 <div
-                                    className=" h-[400px] w-auto overflow-y-auto"
+                                    className="pc:h-[400px] w-auto flex flex-col mobile:flex-auto overflow-y-auto"
                                     ref={messageView}
                                 >
-                                    <div className="w-full ">
+                                    <div className="w-full h-96">
                                         {messageList.length >= messageCount && (
                                             <div
                                                 className=" w-full cursor-pointer text-sm h-6 flex items-center justify-center text-gray-400 hover:text-purple-400"
@@ -417,33 +422,34 @@ function MyChatRooms() {
                                         ))}
                                     </div>
                                 </div>
-                            </div>
-                            <div className="w-full h-40 flex items-center justify-center p-2 ">
-                                <div className="w-full h-28 border-[1px] border-black rounded-lg">
-                                    <div className="h-16">
-                                        <textarea
-                                            ref={sendMessageRef}
-                                            className="h-16 w-full p-2 rounded-tr-lg rounded-tl-lg text-sm resize-none"
-                                            placeholder="메시지를 입력하세요"
-                                            onChange={(e) => setSendMessage(e.target.value)}
-                                            value={sendMessage}
-                                            onKeyDown={onKeyDownMessage}
-                                        ></textarea>
-                                    </div>
-                                    <div className="w-full h-12 flex items-center justify-end p-2">
-                                        <div>
-                                            <CustomButton
-                                                text={"전송"}
-                                                size={"sm"}
-                                                onClick={onClickSendMessage}
-                                            ></CustomButton>
+
+                                <div className="w-full h-40 flex items-center justify-center p-2 ">
+                                    <div className="w-full h-28 border-[1px] border-black rounded-lg">
+                                        <div className="h-16">
+                                            <textarea
+                                                ref={sendMessageRef}
+                                                className="h-16 w-full p-2 rounded-tr-lg rounded-tl-lg text-sm resize-none"
+                                                placeholder="메시지를 입력하세요"
+                                                onChange={(e) => setSendMessage(e.target.value)}
+                                                value={sendMessage}
+                                                onKeyDown={onKeyDownMessage}
+                                            ></textarea>
+                                        </div>
+                                        <div className="w-full h-12 flex items-center justify-end p-2">
+                                            <div>
+                                                <CustomButton
+                                                    text={"전송"}
+                                                    size={"sm"}
+                                                    onClick={onClickSendMessage}
+                                                ></CustomButton>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     ) : messageLoading ? (
-                        <div className="w-3/5">
+                        <div className="mobile:w-full mobile:fixed mobile:z-50 mobile:top-12 mobile:left-0 mobile:h-full pc:w-3/5">
                             <Loading
                                 positon={"relative"}
                                 height={" h-full "}
@@ -451,7 +457,7 @@ function MyChatRooms() {
                             ></Loading>
                         </div>
                     ) : (
-                        <div className="min-w-[300px] w-3/5 flex  items-center justify-center border-l-2">
+                        <div className="mobile:hidden min-w-[300px] w-3/5 flex  items-center justify-center border-l-2">
                             채팅방을 선택해 주세요.
                         </div>
                     )}

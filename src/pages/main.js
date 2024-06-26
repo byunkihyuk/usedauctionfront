@@ -9,24 +9,25 @@ function Main() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         fetch(`${process.env.REACT_APP_CLIENT_IP}/api/main`)
             .then((res) => res.json())
             .then((res) => {
                 setData(res.data);
-                setLoading(false);
             })
             .catch((error) => console.log(error));
+        setLoading(false);
     }, []);
 
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="lg:w-[1000px] sm:w-[600px] flex flex-col items-center justify-center space-y-1">
+            <div className="pc:w-[1000px] pc:max-w-[1000px] mobile:w-96 mobile:px-1 flex flex-col items-center justify-center space-y-1">
                 <div className="w-full flex flex-col">
                     <div className="w-full h-12 flex items-center justify-start border-y-2">
                         인기 거래 글
                     </div>
-                    <div className="flex items-center justify-start space-x-2 p-2 overflow-auto">
+                    <div className="flex items-center justify-start space-x-2 p-2  overflow-auto">
                         {data.topList && data.topList.length > 0 ? (
                             data.topList.map((top, index) => (
                                 <ProductCard

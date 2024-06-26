@@ -28,7 +28,7 @@ function SearchPage() {
     return (
         <Layouts>
             {loading && <Loading></Loading>}
-            <div className="w-full lg:min-w-[1000px]">
+            <div className="pc:w-[1000px] pc:max-w-[1000px] mobile:w-96 mobile:px-1">
                 <div className="w-full h-12 flex items-center justify-start">
                     검색어 : {keyword}
                 </div>

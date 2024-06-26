@@ -27,7 +27,7 @@ function AllAuctionTransaction() {
     const [transactionState, setTransactionState] = useState(
         param.get("state") == null ? "전체" : param.get("state")
     );
-    console.log(transactionState);
+
     const [transactioNStateDropDown, setTransactioNStateDropDown] = useState(false);
     const [sortDropDown, setSortDropDown] = useState(false);
 
@@ -230,7 +230,7 @@ function AllAuctionTransaction() {
                 <div
                     className={`${
                         data && data.totalCount > 0
-                            ? "grid grid-cols-4 gap-4"
+                            ? "grid pc:grid-cols-4 gap-4 mobile:grid-cols-2 mobile:gap-2"
                             : "h-80 flex items-center justify-center"
                     }`}
                 >
@@ -245,7 +245,7 @@ function AllAuctionTransaction() {
                           ))
                         : "등록된 경매가 없습니다."}
                 </div>
-                <div className="grid grid-flow-col">
+                <div className="grid mobile:grid-cols-8 pc:grid-flow-col  ">
                     {pageNumber > 1 ? (
                         <a
                             className=" w-8 h-8 flex items-center justify-center cursor-pointer hover:bg-purple-200 "

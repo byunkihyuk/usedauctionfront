@@ -3,6 +3,10 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
     theme: {
         extend: {},
+        screens: {
+            mobile: { max: "1024px" },
+            pc: { min: "1024px" },
+        },
     },
     plugins: [],
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "./CustomInput";
 
-function Header(props) {
+function Header2(props) {
     const movePage = useNavigate();
     const [login, setLogin] = useState(localStorage.getItem("loginToken"));
     const [position, setPosition] = useState(window.pageYOffset);
@@ -11,6 +11,19 @@ function Header(props) {
     const [searchKeyWord, setSearchKeyWord] = useState("");
     const searchBarRef = useRef(null);
     const [infoOver, setInfoOver] = useState(false);
+    const [menu, setMenu] = useState(false);
+
+    const pc_platform = "win16|win32|win64|mac|macintel";
+
+    const platForm = platformChk();
+
+    function platformChk() {
+        if (0 > pc_platform.indexOf(navigator.platform.toLowerCase())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     useEffect(() => {
         const loginInfo = localStorage.getItem("loginInfo");
@@ -76,67 +89,18 @@ function Header(props) {
     }
     return (
         <header
-            className={`fixed min-w-[1000px] w-full h-12  flex flex-col items-center justify-center border-b-2 border-purple-400 bg-white z-50 transition-all ${
+            className={`fixed w-full min-w-96 h-12  flex flex-col items-center justify-center border-b-2 border-purple-400 bg-white z-50 transition-all ${
                 headerVisible ? "top-0" : "-top-12"
             }`}
         >
-            <div className="min-w-[1000px] h-full flex items-center justify-center space-x-2">
+            <div className="w-full h-full flex items-center justify-between">
                 <Link
                     to={"/"}
                     className="p-2 cursor-pointer"
                     //onClick={mainPage}
                 >
-                    <p className="font-bold text-purple-500 text-lg">usedauction</p>
+                    <p className="font-bold text-purple-500 text-sm">usedauction</p>
                 </Link>
-
-                <div
-                    className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                    onClick={generalTransactionPage}
-                >
-                    중고
-                </div>
-
-                <div
-                    className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                    onClick={auctionTransactionPage}
-                >
-                    경매
-                </div>
-
-                <div
-                    className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                    onClick={chattingRoomPage}
-                >
-                    채팅목록
-                </div>
-                <div
-                    className="cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                    onClick={() => {
-                        if (login == null) {
-                            if (
-                                window.confirm("로그인 후 이용 가능합니다.\n로그인 하시겠습니까?")
-                            ) {
-                                movePage("/sign-in");
-                            }
-                        } else {
-                            movePage("/user");
-                        }
-                    }}
-                    onMouseOver={() => setInfoOver(true)}
-                    onMouseLeave={() => setInfoOver(false)}
-                >
-                    <div
-                        className={`w-16 p-2 flex items-center justify-center overflow-hidden text-ellipsis text-nowrap ${
-                            infoOver ? "" : "text-sm"
-                        }`}
-                    >
-                        {infoOver
-                            ? "내정보"
-                            : localStorage.getItem("nickname")
-                            ? localStorage.getItem("nickname") + "님"
-                            : "내정보"}
-                    </div>
-                </div>
 
                 <CustomInput
                     ref={searchBarRef}
@@ -157,33 +121,101 @@ function Header(props) {
                         }
                     }}
                 ></CustomInput>
-
-                {login ? (
+                <div
+                    className="w-10 h-10 relative cursor-pointer flex flex-col items-center justify-center space-y-1"
+                    onClick={() => setMenu(true)}
+                >
+                    <span className=" bg-gray-600 w-7 h-1 rounded-full"></span>
+                    <span className=" bg-gray-600 w-7 h-1 rounded-full"></span>
+                    <span className=" bg-gray-600 w-7 h-1 rounded-full"></span>
+                </div>
+                {menu && (
                     <div
-                        className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                        onClick={logout}
-                    >
-                        로그아웃
-                    </div>
-                ) : (
-                    <div className="flex items-center justify-center space-x-2">
-                        <div
-                            className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                            onClick={signInPage}
-                        >
-                            로그인
-                        </div>
-                        <div
-                            className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                            onClick={signUpPage}
-                        >
-                            회원가입
-                        </div>
-                    </div>
+                        onClick={() => setMenu(false)}
+                        id="backbord"
+                        className="bg-gray-600 opacity-50 w-full h-full fixed top-0 left-0 z-40"
+                    ></div>
                 )}
+                <div
+                    className={`z-50 absolute top-0 ${
+                        menu ? "right-0" : "-right-full"
+                    } transition-all w-80 h-screen flex flex-col bg-white outline outline-1 outline-gray-400`}
+                >
+                    <div className="w-full flex items-center justify-between border-b-2 border-gray-400">
+                        <div className="px-2 text-lg font-bold">메뉴</div>
+                        {login ? (
+                            <div
+                                className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
+                                onClick={logout}
+                            >
+                                로그아웃
+                            </div>
+                        ) : (
+                            <div className="flex items-center justify-center space-x-2">
+                                <div
+                                    className="p-2 w-20 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
+                                    onClick={signInPage}
+                                >
+                                    로그인
+                                </div>
+                                <div
+                                    className="p-2 w-20 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
+                                    onClick={signUpPage}
+                                >
+                                    회원가입
+                                </div>
+                            </div>
+                        )}
+                        <div
+                            className="w-10 h-10 relative cursor-pointer flex items-center justify-center flex-col"
+                            onClick={() => setMenu(false)}
+                        >
+                            <span className="absolute rotate-45 bg-black w-8 h-1 rounded-full"></span>
+                            <span className="absolute -rotate-45 bg-black w-8 h-1 rounded-full"></span>
+                        </div>
+                    </div>
+                    <div
+                        className="p-2 h-12 flex items-center justify-center cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white border-b-2"
+                        onClick={generalTransactionPage}
+                    >
+                        중고
+                    </div>
+
+                    <div
+                        className="p-2 h-12 flex items-center justify-center cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white border-b-2"
+                        onClick={auctionTransactionPage}
+                    >
+                        경매
+                    </div>
+
+                    <div
+                        className="p-2 h-12 flex items-center justify-center cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white border-b-2"
+                        onClick={chattingRoomPage}
+                    >
+                        채팅목록
+                    </div>
+                    <div
+                        className="p-2 h-12 flex items-center justify-center cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white border-b-2"
+                        onClick={() => {
+                            if (login == null) {
+                                if (
+                                    window.confirm(
+                                        "로그인 후 이용 가능합니다.\n로그인 하시겠습니까?"
+                                    )
+                                ) {
+                                    movePage("/sign-in");
+                                }
+                            } else {
+                                movePage("/user");
+                            }
+                        }}
+                    >
+                        내정보
+                    </div>
+                </div>
             </div>
             <div
-                className={`fixed z-50 transition-all   ${
+                className={`fixed z-40 transition-all   ${
                     dot
                         ? "w-auto h-auto bottom-10 right-5 bg-white outline outline-1 outline-purple-500 rounded-md "
                         : "w-10 h-10 bottom-10 right-5 bg-purple-500 rounded-full cursor-pointer  flex items-center justify-center"
@@ -233,4 +265,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default Header2;

@@ -5,53 +5,37 @@ import search from "../images/search.png";
 import x from "../images/x.png";
 
 function Footer() {
-  return (
-    <footer className="relative bottom-0 w-full h-20 min-h-20 bg-gray-100 p-4 flex justify-center z-0">
-      <div className="min-w-[1000px] p-2 flex flex-col ">
-        <div className="text-sm text-gray-600">
-          <ul className="flex gap-1 items-center justify-center">
-            사용 이미지 출처
-            <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://icons8.com"
-              >
-                <img alt={noimage} src={noimage} height={16} width={16} />
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://icons8.com"
-              >
-                <img alt={searchGray} src={searchGray} height={16} width={16} />
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://icons8.com"
-              >
-                <img alt={search} src={search} height={16} width={16} />
-              </a>
-            </li>
-            <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://icons8.com"
-              >
-                <img alt={x} src={x} height={16} width={16} />
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="text-sm text-gray-600">Email : rlgur1099@gmail.com</div>
-      </div>
-      {/* <table className="text-gray-600 text-sm">
+    return (
+        <footer className="relative bottom-0 w-full h-20 min-h-20 bg-gray-100 p-4 flex justify-center z-0">
+            <div className="p-2 flex flex-col ">
+                <div className="text-sm text-gray-600">
+                    <ul className="flex gap-1 items-center justify-center">
+                        사용 이미지 출처
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://icons8.com">
+                                <img alt={noimage} src={noimage} height={16} width={16} />
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://icons8.com">
+                                <img alt={searchGray} src={searchGray} height={16} width={16} />
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://icons8.com">
+                                <img alt={search} src={search} height={16} width={16} />
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://icons8.com">
+                                <img alt={x} src={x} height={16} width={16} />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="text-sm text-gray-600">Email : rlgur1099@gmail.com</div>
+            </div>
+            {/* <table className="text-gray-600 text-sm">
         <tbody>
           <tr>
             <th>사용된 링크</th>
@@ -93,8 +77,8 @@ function Footer() {
           </tr>
         </tbody>
       </table> */}
-    </footer>
-  );
+        </footer>
+    );
 }
 
 export default Footer;
