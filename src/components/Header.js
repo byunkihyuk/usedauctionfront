@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "./CustomInput";
+import { ReactComponent as NotificationIcon } from "../images/notification.svg";
+import { EventSourcePolyfill } from "event-source-polyfill";
+import CustomButton from "./CustomButton";
+import Notification from "./Notification";
 
 function Header(props) {
     const movePage = useNavigate();
@@ -11,6 +15,10 @@ function Header(props) {
     const [searchKeyWord, setSearchKeyWord] = useState("");
     const searchBarRef = useRef(null);
     const [infoOver, setInfoOver] = useState(false);
+    const [notificationDropDown, setNotificationDropDown] = useState(false);
+    const [notification, setNotification] = useState(null);
+    const [notificationStart, setNotificationStart] = useState(0);
+    const [newNotification, setNewNotification] = useState(0);
 
     useEffect(() => {
         const loginInfo = localStorage.getItem("loginInfo");
@@ -36,6 +44,67 @@ function Header(props) {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [position]);
+
+    useEffect(() => {
+        if (localStorage.getItem("loginToken")) {
+            const eventSource = new EventSourcePolyfill(
+                `${
+                    process.env.REACT_APP_CLIENT_IP
+                }/api/notification?nickname=${localStorage.getItem("nickname")}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+                    },
+                    heartbeatTimeout: 3600000,
+                }
+            );
+
+            eventSource.onopen = () => {
+                console.log("notification see 연결");
+            };
+
+            eventSource.addEventListener("notification", (res) => {
+                if (res.data !== "Notification Subscribed successfully.") {
+                    const getSseData = JSON.parse(res.data);
+                    setNotification([getSseData, ...notification]);
+                }
+            });
+
+            eventSource.onerror = (res) => {
+                console.log(res);
+            };
+
+            return () => {
+                eventSource.close();
+            };
+        }
+    }, [login]);
+
+    useEffect(() => {
+        if (localStorage.getItem("loginToken")) {
+            fetch(
+                `${process.env.REACT_APP_CLIENT_IP}/api/notification?start=${notificationStart}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+                    },
+                }
+            )
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res);
+                    if (res.status == "success") {
+                        setNotification(res.data.notification);
+                        setNotificationStart(res.data.notification.length);
+                        setNewNotification(res.data.newNotification);
+                    } else {
+                        console.log("알림을 불러오지 못했습니다.");
+                    }
+                })
+                .catch((error) => console.log(error));
+        }
+    }, []);
 
     function signInPage() {
         movePage("/sign-in");
@@ -74,6 +143,84 @@ function Header(props) {
     function onChangeSearch(e) {
         setSearchKeyWord(e.target.value);
     }
+
+    function onClickNotification(item) {
+        if (item.readornot == false) {
+            fetch(`${process.env.REACT_APP_CLIENT_IP}/api/notification-read`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    notificationId: item.notificationId,
+                }),
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.status == "success") {
+                        setNewNotification(newNotification - 1);
+                        movePage(item.url);
+                    }
+                })
+                .catch((error) => console.log(error));
+        } else {
+            movePage(item.url);
+        }
+    }
+
+    function onClickReadNotification(item, index) {
+        fetch(`${process.env.REACT_APP_CLIENT_IP}/api/notification-read`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                notificationId: item.notificationId,
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status == "success") {
+                    setNewNotification(newNotification - 1);
+                    rerender(res.data, index);
+                }
+            })
+            .catch((error) => console.log(error));
+    }
+
+    function rerender(updateData, index) {
+        let copyNotification = [...notification];
+        copyNotification[index] = updateData;
+        setNotification(copyNotification);
+    }
+
+    function onClickReadAllNotification() {
+        if (newNotification > 0) {
+            fetch(
+                `${process.env.REACT_APP_CLIENT_IP}/api/notification-read-all?start=${notificationStart}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+                    },
+                }
+            )
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.status == "success") {
+                        setNotification(res.data.notification);
+                        setNotificationStart(res.data.notification.length);
+                        setNewNotification(res.data.newNotification);
+                    } else {
+                        alert(res.message);
+                    }
+                })
+                .catch((error) => console.log(error));
+        }
+    }
+
     return (
         <header
             className={`fixed min-w-[1000px] w-full h-12  flex flex-col items-center justify-center border-b-2 border-purple-400 bg-white z-50 transition-all ${
@@ -159,11 +306,64 @@ function Header(props) {
                 ></CustomInput>
 
                 {login ? (
-                    <div
-                        className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
-                        onClick={logout}
-                    >
-                        로그아웃
+                    <div className="flex items-center justify-center space-x-2">
+                        <div className="relative">
+                            <NotificationIcon
+                                className="cursor-pointer w-8 h-8"
+                                onClick={() => setNotificationDropDown(!notificationDropDown)}
+                            />
+                            <div
+                                className={`absolute top-12 right-0 bg-white border-2 rounded-lg w-80 transition-all
+                                    ${
+                                        notificationDropDown
+                                            ? "visible max-h-screen h-[500px]"
+                                            : "invisible h-0"
+                                    }`}
+                            >
+                                <div className="w-full h-full p-2  flex flex-col space-y-2">
+                                    <div className="w-full h-6 flex items-center justify-center">
+                                        알림
+                                        <div
+                                            className="absolute top-2 right-5 w-6 h-6 flex flex-col items-center justify-center cursor-pointer"
+                                            onClick={() => setNotificationDropDown(false)}
+                                        >
+                                            <span className="absolute w-6 h-[2px] bg-black rounded-full rotate-45"></span>
+                                            <span className="absolute w-6 h-[2px] bg-black rounded-full -rotate-45"></span>
+                                        </div>
+                                    </div>
+                                    <div className="w-full flex-auto overflow-y-auto space-y-1 p-1 bg-gray-200">
+                                        {notification && notification.length > 0 ? (
+                                            notification.map((item, index) => (
+                                                <Notification
+                                                    item={item}
+                                                    index={index}
+                                                    key={index}
+                                                    onClickReadNotification={
+                                                        onClickReadNotification
+                                                    }
+                                                    onClickNotification={onClickNotification}
+                                                ></Notification>
+                                            ))
+                                        ) : (
+                                            <div className="h-full flex items-center justify-center">
+                                                알림이 없습니다.
+                                            </div>
+                                        )}
+                                    </div>
+                                    <CustomButton
+                                        text={"전체 읽기"}
+                                        size={"full"}
+                                        onClick={onClickReadAllNotification}
+                                    ></CustomButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            className="p-2 cursor-pointer transition hover:bg-gradient-to-l hover:from-white hover:via-purple-200 hover:via-50% hover:to-white"
+                            onClick={logout}
+                        >
+                            로그아웃
+                        </div>
                     </div>
                 ) : (
                     <div className="flex items-center justify-center space-x-2">

@@ -3,6 +3,7 @@ import noimage from "../images/noimage.png";
 import searchGray from "../images/search-gray.svg";
 import search from "../images/search.png";
 import x from "../images/x.png";
+import notification from "../images/notification.svg";
 
 function Footer() {
     return (
@@ -29,6 +30,15 @@ function Footer() {
                         <li>
                             <a target="_blank" rel="noopener noreferrer" href="https://icons8.com">
                                 <img alt={x} src={x} height={16} width={16} />
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://icons8.com/icon/16008/notification"
+                            >
+                                <img alt={notification} src={notification} height={16} width={16} />
                             </a>
                         </li>
                     </ul>
