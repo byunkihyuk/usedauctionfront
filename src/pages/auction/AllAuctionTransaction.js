@@ -25,7 +25,7 @@ function AllAuctionTransaction() {
     const [pages, setPages] = useState([]);
 
     const [transactionState, setTransactionState] = useState(
-        param.get("state") == null ? "전체" : param.get("state")
+        param.get("state") == null ? "판매중" : param.get("state")
     );
 
     const [transactioNStateDropDown, setTransactioNStateDropDown] = useState(false);
