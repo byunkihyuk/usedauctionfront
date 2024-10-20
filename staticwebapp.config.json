@@ -3,8 +3,6 @@
     {
       "route": "/*",
       "rewrite": "/index.html",
-      "redirect": "/index.html",
-      "serve": "/index.html",
       "statusCode": 200
     }
   ]
